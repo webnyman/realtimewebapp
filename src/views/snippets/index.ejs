@@ -1,0 +1,53 @@
+<h1>Snippets</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Snippet Code <small class="text-muted"><i class="bi-clipboard-data" aria-hidden="true"></i> (Copy to clipboard)</small></th>
+      <th>Snippet Tag</th>
+      <th>Created By</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (snippetData?.snippets?.length) { %>
+      <% for (const snippet of snippetData.snippets) { %>
+        <tr>
+          <td class="text-left">
+            <%= snippet.snippetName %>
+          </td>
+          <td class="text-primary">
+            <button type="button" class="btn" id="copyToClipboard"><i class="bi-clipboard-data" aria-hidden="true"><small class="text-success d-none"> Copied</small></i></button>
+            <pre id="snippetPre"><%= snippet.snippet %></pre>
+          </td>
+          <td class="text-left">
+            <a href="./snippets/query/?tag=<%= snippet.tag %>"><%= snippet.tag %></a>
+          </td>
+          <td class="text-left">
+            <a href="./snippets/query/?user=<%= snippet.createdBy %>"><%= snippet.createdBy %></a>
+          </td>
+          <td class="text-nowrap">
+          <% if (locals.isLoggedin && (locals.createdBy === snippet.createdBy)) { %>
+            <a href="./snippets/<%= snippet.id %>/update">Update</a>
+            <a href="./snippets/<%= snippet.id %>/delete">Delete</a>
+          <% } %>
+        </td>
+        </tr>
+      <% } %>
+    <% } else { %>
+      <tr>
+        <td colspan="4" class="text-center text-danger">
+          There are no snippets to display
+        </td>
+      </tr>
+    <% } %>
+    <% if (locals.filtered) { %>
+      <tr>
+        <td colspan="5" class="text-center">
+          <a href="./snippets/">Remove filter</a>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+<script src="./javascript/copyToClipboard.js"></script>

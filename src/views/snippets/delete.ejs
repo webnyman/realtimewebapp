@@ -1,0 +1,18 @@
+<h1>Delete snippet</h1>
+<form class="row g-3" method="post" action="./snippets/<%= snippetData?.id %>/delete">
+  <input type="hidden" name="id" value="<%= snippetData?.id %>" />
+  <div class="col-md-12">
+    <label class="form-label" for="nameInput">
+      Snippet Name
+    </label>
+    <input type="text" class="form-control" value="<%= snippetData?.snippetName %>" disabled/>
+  </div>
+    <div class="form-group">
+      <label for="snippetCode">Snippet code</label>
+      <textarea class="form-control" disabled rows="15"><%= snippetData?.snippet %></textarea>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary" autofocus="autofocus">Delete</button>
+  </div>
+</form>
