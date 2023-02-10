@@ -10,6 +10,8 @@ import expressLayouts from 'express-ejs-layouts'
 import session from 'express-session'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createServer } from 'node:http'
+import { Server } from 'socket.io'
 import logger from 'morgan'
 import helmet from 'helmet'
 import { router } from './routes/router.js'
@@ -23,6 +25,19 @@ try {
 
   // Creates an Express application.
   const app = express()
+
+  // Create an HTTP server and pass it to Socket.IO.
+  const httpServer = createServer(app)
+  const io = new Server(httpServer)
+
+  // Not necessary, but nice to log when a user connects/disconnects.
+  io.on('connection', (socket) => {
+    console.log('socket.io: a user connected')
+
+    socket.on('disconnect', () => {
+      console.log('socket.io: a user disconnected')
+    })
+  })
 
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
@@ -54,6 +69,14 @@ try {
   // Parse requests of the content type application/x-www-form-urlencoded.
   // Populates the request object with a body object (req.body).
   app.use(express.urlencoded({ extended: false }))
+
+  // --------------------------------------------------------------------------
+  //
+  // Webhook: Parse incoming requests with JSON payloads (application/json).
+  // Populates the request object with a body object (req.body).
+  //
+  app.use(express.json())
+  // --------------------------------------------------------------------------
 
   // Serve static files.
   app.use(express.static(join(directoryFullName, '..', 'public')))
@@ -123,7 +146,7 @@ try {
   })
 
   // Starts the HTTP server listening for connections.
-  app.listen(process.env.PORT, () => {
+  httpServer.listen(process.env.PORT, () => {
     console.log(`Server running at http://localhost:${process.env.PORT}`)
     console.log('Press Ctrl-C to terminate...')
   })

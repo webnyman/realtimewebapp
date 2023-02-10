@@ -33,15 +33,16 @@
     "helmet": "^6.0.1",
     "mongoose": "^6.8.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.6.0"
   },
   "eslintConfig": {
     "extends": "@lnu"
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.7",
-    "eslint": "^8.25.0",
     "dotenv": "^16.0.3",
+    "eslint": "^8.25.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.3.14",
