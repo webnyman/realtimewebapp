@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { Issue } from '../models/Issue'
+import { Issue } from '../models/Issue.js'
 
 /**
  * Encapsulates a controller.
