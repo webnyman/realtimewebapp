@@ -10,7 +10,7 @@ const Schema = mongoose.Schema
 
 // Create a schema.
 const issueSchema = new Schema({
-  issue: {
+  issueName: {
     type: String,
     required: true,
     maxlength: 4000

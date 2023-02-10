@@ -1,0 +1,24 @@
+<h1>Issues</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">Created By</div>
+        <div class="col-sm-8">Issue</div>
+    </div>
+    <% if (issueData?.issues?.length) { %>
+      <% for (const issue of issueData.issues) { %>
+        <div class="row">
+            <div class="col-sm-4">
+            <%= issue.createdBy %>
+            </div>
+            <div class="col-sm-8">
+                <%= issue.issueName %>
+            </div>
+        </div>
+      <% } %>
+    <% } else { %>
+        <div class="row">
+            <div class="col text-center">No issues to display</div>
+        </div>
+    <% } %>
+</div>
+<script src="./javascript/copyToClipboard.js"></script>
