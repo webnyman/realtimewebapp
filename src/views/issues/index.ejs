@@ -8,10 +8,10 @@
       <% for (const issue of issueData.issues) { %>
         <div class="row">
             <div class="col-sm-4">
-            <%= issue.createdBy %>
+            <%= issue.title %>
             </div>
             <div class="col-sm-8">
-                <%= issue.issueName %>
+                <%= issue.description %>
             </div>
         </div>
       <% } %>

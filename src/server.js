@@ -112,6 +112,9 @@ try {
     // Pass the base URL to the views.
     res.locals.baseURL = baseURL
 
+    // Add the io object to the response object to make it available in controllers.
+    res.io = io
+
     next()
   })
 

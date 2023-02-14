@@ -4,4 +4,4 @@ import '../socket.io/socket.io.js'
 const socket = window.io()
 
 // Listen for "tasks/create" message from the server.
-socket.on('tasks/create', (task) => console.log(task))
+socket.on('issues/create', (issue) => console.log(issue))

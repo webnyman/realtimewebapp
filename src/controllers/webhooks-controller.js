@@ -26,7 +26,6 @@ export class WebhooksController {
       next(error)
       return
     }
-
     next()
   }
 
@@ -41,23 +40,26 @@ export class WebhooksController {
     try {
       // Only interested in issues events. (But still, respond with a 200
       // for events not supported.)
-      let task = null
+      let issue = null
       if (req.body.event_type === 'issue') {
-        task = new Issue({
-          description: req.body.object_attributes.title
+        issue = new Issue({
+          issueName: req.body.object_attributes.title,
+          createdBy: 'me'
         })
 
-        await task.save()
+        await issue.save()
       }
-
+      if (issue) {
+        res.io.emit('issues/create', issue.toObject())
+      }
+      if (req.headers['x-gitlab-event']) {
+        res.status(200).send()
+      }
       // It is important to respond quickly!
-      res.status(200).end()
 
       // Put this last because socket communication can take long time.
-      if (task) {
-        res.io.emit('issue/create', task.toObject())
-      }
     } catch (error) {
+      console.log(error)
       const err = new Error('Internal Server Error')
       err.status = 500
       next(err)

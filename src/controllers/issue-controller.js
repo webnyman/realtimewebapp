@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { Issue } from '../models/Issue.js'
+import fetch from 'node-fetch'
 
 /**
  * Encapsulates a controller.
@@ -20,11 +20,16 @@ export class IssueController {
    */
   async index (req, res, next) {
     try {
+      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues?state=opened`, {
+        headers: {
+          authorization: `bearer ${process.env.GITLAB_API_TOKEN}`
+        }
+      })
+      const data = await response.json()
       const issueData = {
-        issues: (await Issue.find().sort({ _id: 'desc' }))
-          .map(issue => issue.toObject())
+        issues: data.map(data => data)
       }
-
+      console.log(issueData.issues)
       res.render('issues/index', { issueData })
     } catch (error) {
       next(error)
