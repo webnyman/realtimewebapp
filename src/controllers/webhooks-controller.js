@@ -5,8 +5,6 @@
  * @version 1.0.0
  */
 
-import { Issue } from '../models/Issue.js'
-
 /**
  * Encapsulates a controller.
  */
@@ -42,15 +40,16 @@ export class WebhooksController {
       // for events not supported.)
       let issue = null
       if (req.body.event_type === 'issue') {
-        issue = new Issue({
-          issueName: req.body.object_attributes.title,
-          createdBy: 'me'
-        })
-
-        await issue.save()
+        issue = {
+          id: req.body.object_attributes.id,
+          iid: req.body.object_attributes.iid,
+          title: req.body.object_attributes.title,
+          description: req.body.object_attributes.description,
+          createdBy: req.body.user.name
+        }
       }
       if (issue) {
-        res.io.emit('issues/create', issue.toObject())
+        res.io.emit('issues/create', issue)
       }
       if (req.headers['x-gitlab-event']) {
         res.status(200).send()
