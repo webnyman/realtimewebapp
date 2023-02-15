@@ -1,6 +1,7 @@
 import '../socket.io/socket.io.js'
 
 const issueTemplate = document.querySelector('#issuetemplate')
+const issueContainer = document.querySelector('thead')
 
 if (issueTemplate) {
   // Create a socket connection using Socket.IO.
@@ -14,22 +15,41 @@ if (issueTemplate) {
  * @param {object} issue - The issue to add.
  */
 function insertIssueRow (issue) {
-  console.log(issue)
-  const issueContainer = document.querySelector('thead')
-  if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
-    const issueNode = issueTemplate.content.cloneNode(true)
-    const issueRow = issueNode.querySelector('tr')
-    const issueNumberTd = issueNode.querySelectorAll('td')[0]
-    const issueTitleTd = issueNode.querySelectorAll('td')[1]
-    const issueDescrTd = issueNode.querySelectorAll('td')[2]
-    const issueCreatedByTd = issueNode.querySelectorAll('td')[3]
+  try {
+    if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
+      const issueNode = issueTemplate.content.cloneNode(true)
+      const issueRow = issueNode.querySelector('tr')
+      const issueNumberTd = issueNode.querySelectorAll('td')[0]
+      const issueTitleTd = issueNode.querySelectorAll('td')[1]
+      const issueDescrTd = issueNode.querySelectorAll('td')[2]
+      const issueCreatedByTd = issueNode.querySelectorAll('td')[3]
 
-    issueRow.setAttribute('data-id', issue.id)
-    issueNumberTd.innerText = issue.iid
-    issueTitleTd.innerText = issue.title
-    issueDescrTd.innerText = issue.description
-    issueCreatedByTd.innerText = issue.createdBy
+      issueRow.setAttribute('data-id', issue.id)
+      issueNumberTd.innerText = issue.iid
+      issueTitleTd.innerText = issue.title
+      issueDescrTd.innerText = issue.description
+      issueCreatedByTd.innerText = issue.createdBy
 
-    issueContainer.appendChild(issueNode)
+      issueContainer.appendChild(issueNode)
+      blinkGreen()
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * Makes first row green on insert.
+ *
+ */
+function blinkGreen () {
+  try {
+    const firstRow = issueContainer.querySelectorAll('tr')[1]
+    firstRow.classList.add('table-success')
+    setTimeout(() => {
+      firstRow.classList.remove('table-success')
+    }, 1000)
+  } catch (error) {
+    console.log(error)
   }
 }
