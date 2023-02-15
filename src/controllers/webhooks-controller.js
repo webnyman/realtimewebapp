@@ -34,7 +34,7 @@ export class WebhooksController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async indexPost (req, res, next) {
+  async webhook (req, res, next) {
     try {
       // Only interested in issues events. (But still, respond with a 200
       // for events not supported.)
@@ -48,15 +48,16 @@ export class WebhooksController {
           createdBy: req.body.user.name
         }
       }
-      if (issue) {
-        res.io.emit('issues/create', issue)
-      }
+
+      // It is important to respond quickly!
       if (req.headers['x-gitlab-event']) {
         res.status(200).send()
       }
-      // It is important to respond quickly!
 
       // Put this last because socket communication can take long time.
+      if (issue) {
+        res.io.emit('issues/create', issue)
+      }
     } catch (error) {
       console.log(error)
       const err = new Error('Internal Server Error')
