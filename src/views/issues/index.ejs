@@ -1,24 +1,43 @@
 <h1>Issues</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">Created By</div>
-        <div class="col-sm-8">Issue</div>
-    </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created By</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
     <% if (issueData?.issues?.length) { %>
-      <% for (const issue of issueData.issues) { %>
-        <div class="row">
-            <div class="col-sm-4">
+    <% for (const issue of issueData.issues) { %>
+    <tr>
+        <td class="text-left">
+            <%= issue.iid %>
+        </td>
+        <td class="text-primary">
             <%= issue.title %>
-            </div>
-            <div class="col-sm-8">
-                <%= issue.description %>
-            </div>
-        </div>
-      <% } %>
-    <% } else { %>
-        <div class="row">
-            <div class="col text-center">No issues to display</div>
-        </div>
+        </td>
+        <td class="text-left">
+            <%= issue.description %>
+        </td>
+        <td class="text-left">
+            <%= issue.author.name %>
+        </td>
+        <td class="text-nowrap">
+            <a href="#">Update</a>
+            <a href="#">Delete</a>
+        </td>
+    </tr>
     <% } %>
-</div>
+    <% } else { %>
+        <tr>
+            <td colspan="4" class="text-center text-danger">
+                There are no issues to display
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
 <script type="module" src="./javascript/getIssues.js"></script>
