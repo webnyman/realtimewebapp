@@ -29,8 +29,30 @@ export class IssueController {
       const issueData = {
         issues: data.map(data => data)
       }
-      console.log(issueData.issues)
+
       res.render('issues/index', { issueData })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Closes an issue.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async close (req, res, next) {
+    try {
+      await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}?state_event=close`, {
+        method: 'PUT',
+        headers: {
+          authorization: `bearer ${process.env.GITLAB_API_TOKEN}`
+        }
+      })
+      req.session.flash = { type: 'success', text: 'The issue was successfully closed.' + req.params.id }
+      res.redirect('../')
     } catch (error) {
       next(error)
     }

@@ -15,3 +15,5 @@ const controller = new IssueController()
 // Map HTTP verbs and route paths to controller action methods.
 
 router.get('/', controller.index)
+
+router.get('/:id/close', controller.close)

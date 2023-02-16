@@ -6,7 +6,7 @@ const issueContainer = document.querySelector('thead')
 if (issueTemplate) {
   // Create a socket connection using Socket.IO.
   const socket = window.io()
-  socket.on('issues/create', (issue) => insertIssueRow(issue))
+  socket.on('newIssue', (issue) => insertIssueRow(issue))
 }
 
 /**

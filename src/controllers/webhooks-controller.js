@@ -45,7 +45,8 @@ export class WebhooksController {
           iid: req.body.object_attributes.iid,
           title: req.body.object_attributes.title,
           description: req.body.object_attributes.description,
-          createdBy: req.body.user.name
+          createdBy: req.body.user.name,
+          action: req.body.object_attributes.action
         }
       }
 
@@ -55,8 +56,8 @@ export class WebhooksController {
       }
 
       // Put this last because socket communication can take long time.
-      if (issue) {
-        res.io.emit('issues/create', issue)
+      if (issue.action === 'open' || issue.action === 'reopen') {
+        res.io.emit('newIssue', issue)
       }
     } catch (error) {
       console.log(error)
