@@ -58,6 +58,8 @@ export class WebhooksController {
       // Put this last because socket communication can take long time.
       if (issue.action === 'open' || issue.action === 'reopen') {
         res.io.emit('newIssue', issue)
+      } else if (issue.action === 'close') {
+        res.io.emit('closeIssue', issue)
       }
     } catch (error) {
       console.log(error)

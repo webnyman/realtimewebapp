@@ -7,6 +7,7 @@ if (issueTemplate) {
   // Create a socket connection using Socket.IO.
   const socket = window.io()
   socket.on('newIssue', (issue) => insertIssueRow(issue))
+  socket.on('closeIssue', (issue) => deleteIssueRow(issue.id))
 }
 
 /**
@@ -33,6 +34,19 @@ function insertIssueRow (issue) {
       issueContainer.appendChild(issueNode)
       blinkGreen()
     }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * Delets an issue from the issue table.
+ *
+ * @param {object} issueId - The issue to delete.
+ */
+function deleteIssueRow (issueId) {
+  try {
+    document.querySelector(`tr[data-id="${issueId}"]`).remove()
   } catch (error) {
     console.log(error)
   }
