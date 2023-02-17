@@ -23,7 +23,7 @@
             <%= issue.description %>
         </td>
         <td class="text-left">
-            <%= issue.author.name %>
+            <img crossorigin="anonymous" src="<%= issue.author.avatar_url %>" alt="<%= issue.author.name %>" class="avatar">&nbsp;&nbsp;<%= issue.author.name %>
         </td>
         <td class="text-nowrap">
             <a href="./issues/<%= issue.iid %>/close">Close</a>
@@ -49,10 +49,11 @@
     <td class="text-left">
     </td>
     <td class="text-left">
+        <img crossorigin="anonymous" src="" alt="" class="avatar">&nbsp;&nbsp;<span></span>
     </td>
     <td class="text-nowrap">
-        <a href="#">Close</a>
-        <a href="#">Delete</a>
+        <a href="">Close</a>
+        <a href="">Delete</a>
     </td>
 </tr>
 </template>

@@ -102,3 +102,6 @@ html {
   .card-text {
     font-family: 'Consolas', 'Courier New', Courier, monospace
   }
+  .avatar {
+    width: 20px;
+  }

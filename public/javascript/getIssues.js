@@ -54,14 +54,17 @@ function createIssue (issue) {
       const issueNumberTd = issueNode.querySelectorAll('td')[0]
       const issueTitleTd = issueNode.querySelectorAll('td')[1]
       const issueDescrTd = issueNode.querySelectorAll('td')[2]
-      const issueCreatedByTd = issueNode.querySelectorAll('td')[3]
+      const avatar = issueNode.querySelector('img')
+      const issueCreatedBySpan = issueNode.querySelector('span')
 
       issueRow.setAttribute('data-id', issue.id)
       issueRow.classList.add('issue')
       issueNumberTd.innerText = issue.iid
       issueTitleTd.innerText = issue.title
       issueDescrTd.innerText = issue.description
-      issueCreatedByTd.innerText = issue.createdBy
+      avatar.setAttribute('src', issue.avatar)
+      avatar.setAttribute('alt', issue.createdBy)
+      issueCreatedBySpan.innerText = issue.createdBy
 
       return issueNode
     }

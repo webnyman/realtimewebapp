@@ -52,11 +52,12 @@ try {
     helmet.contentSecurityPolicy({
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", 'cdn.jsdelivr.net']
+        'script-src': ["'self'", 'cdn.jsdelivr.net'],
+        'img-src': ["'self'", 'secure.gravatar.com']
       }
     })
   )
-
+  // app.use(helmet({ crossOriginEmbedderPolicy: false }))
   // Set up a morgan logger using the dev format for log entries.
   app.use(logger('dev'))
 

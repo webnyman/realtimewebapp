@@ -46,7 +46,8 @@ export class WebhooksController {
           title: req.body.object_attributes.title,
           description: req.body.object_attributes.description,
           createdBy: req.body.user.name,
-          action: req.body.object_attributes.action
+          action: req.body.object_attributes.action,
+          avatar: req.body.user.avatar_url
         }
       }
 
