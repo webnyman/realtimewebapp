@@ -68,6 +68,7 @@ function createIssue (issue) {
 
       return issueNode
     }
+    return
   } catch (error) {
     console.log(error)
   }
