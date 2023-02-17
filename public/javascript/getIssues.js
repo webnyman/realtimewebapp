@@ -10,6 +10,7 @@ if (issueTemplate) {
     insertIssue(issue.id, createIssue(issue))
   })
   socket.on('closeIssue', (issue) => deleteIssueRow(issue.id))
+  socket.on('updateIssue', (issue) => updateIssue(issue))
 }
 
 /**
@@ -43,7 +44,7 @@ function insertIssue (issueId, issueNode) {
  * Creates a issue node.
  *
  * @param {object} issue - The issue to add.
- * @returns {object} DOM object
+ * @returns {object} issueNode DOM object
  */
 function createIssue (issue) {
   try {
@@ -70,13 +71,31 @@ function createIssue (issue) {
 }
 
 /**
- * Delets an issue from the issue table.
+ * Deletes an issue from the issue table.
  *
  * @param {any} issueId - The issue to delete.
  */
 function deleteIssueRow (issueId) {
   try {
     document.querySelector(`tr[data-id="${issueId}"]`).remove()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * Updates an issue from the issue table.
+ *
+ * @param {object} issue - The issue to update.
+ */
+function updateIssue (issue) {
+  try {
+    console.log(issue.id)
+    const issueToUpdate = document.querySelector(`tr[data-id="${issue.id}"]`)
+    issueToUpdate.querySelectorAll('td')[1].innerText = issue.title
+    issueToUpdate.querySelectorAll('td')[2].innerText = issue.description
+    issueToUpdate.querySelectorAll('td')[3].innerText = issue.createdBy
+    blinkGreen(issue.id)
   } catch (error) {
     console.log(error)
   }

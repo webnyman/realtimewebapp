@@ -60,7 +60,10 @@ export class WebhooksController {
         res.io.emit('newIssue', issue)
       } else if (issue.action === 'close') {
         res.io.emit('closeIssue', issue)
+      } else if (issue.action === 'update') {
+        res.io.emit('updateIssue', issue)
       }
+      console.log(issue.action)
     } catch (error) {
       console.log(error)
       const err = new Error('Internal Server Error')
