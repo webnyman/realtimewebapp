@@ -22,7 +22,8 @@ export class IssueController {
     try {
       const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues?state=opened`, {
         headers: {
-          authorization: `bearer ${process.env.GITLAB_API_TOKEN}`
+          'Content-Type': 'application/json',
+          'PRIVATE-TOKEN': process.env.GITLAB_API_TOKEN
         }
       })
       const data = await response.json()
@@ -45,13 +46,20 @@ export class IssueController {
    */
   async close (req, res, next) {
     try {
-      await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}?state_event=close`, {
+      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}?state_event=close`, {
         method: 'PUT',
         headers: {
-          authorization: `bearer ${process.env.GITLAB_API_TOKEN}`
+          'Content-Type': 'application/json',
+          'PRIVATE-TOKEN': process.env.GITLAB_API_TOKEN
         }
       })
-      req.session.flash = { type: 'success', text: 'The issue was successfully closed.' + req.params.id }
+      const data = await response.json()
+      console.log(data.message)
+      if (data.message) {
+        req.session.flash = { type: 'danger', text: 'Something went wrong. Could not close the issue' }
+      } else {
+        req.session.flash = { type: 'success', text: 'The issue was successfully closed.' }
+      }
       res.redirect('../')
     } catch (error) {
       next(error)

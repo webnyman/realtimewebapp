@@ -12,7 +12,7 @@
     <tbody>
     <% if (issueData?.issues?.length) { %>
     <% for (const issue of issueData.issues) { %>
-    <tr data-id="<%= issue.id %>">
+    <tr class="issue" data-id="<%= issue.id %>">
         <td class="text-left">
             <%= issue.iid %>
         </td>
@@ -26,7 +26,7 @@
             <%= issue.author.name %>
         </td>
         <td class="text-nowrap">
-            <a href="./issues/<%= issue.id %>/close">Close</a>
+            <a href="./issues/<%= issue.iid %>/close">Close</a>
             <a href="#">Delete</a>
         </td>
     </tr>
@@ -51,7 +51,7 @@
     <td class="text-left">
     </td>
     <td class="text-nowrap">
-        <a href="#">Update</a>
+        <a href="#">Close</a>
         <a href="#">Delete</a>
     </td>
 </tr>
