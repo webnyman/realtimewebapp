@@ -15,14 +15,8 @@ import { Server } from 'socket.io'
 import logger from 'morgan'
 import helmet from 'helmet'
 import { router } from './routes/router.js'
-import { connectToDB } from './config/mongoose.js'
-import { CredentialController } from './middlewares/credentials.js'
-const credentials = new CredentialController()
 
 try {
-  // Connect to MongoDB.
-  await connectToDB()
-
   // Creates an Express application.
   const app = express()
 
@@ -118,9 +112,6 @@ try {
 
     next()
   })
-
-  // Middleware to set locals if logged in
-  app.use(credentials.setLocals)
 
   // Register routes.
   app.use('/', router)
