@@ -47,8 +47,8 @@ function insertIssue (issueId, issueNode) {
  * @returns {object} issueNode - The node to insert.
  */
 function createIssue (issue) {
-  try {
-    if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
+  if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
+    try {
       const issueNode = issueTemplate.content.cloneNode(true)
       const issueRow = issueNode.querySelector('tr')
       const issueNumberTd = issueNode.querySelectorAll('td')[0]
@@ -67,9 +67,9 @@ function createIssue (issue) {
       issueCreatedBySpan.innerText = issue.createdBy
 
       return issueNode
+    } catch (error) {
+      console.log(error)
     }
-  } catch (error) {
-    console.log(error)
   }
 }
 
