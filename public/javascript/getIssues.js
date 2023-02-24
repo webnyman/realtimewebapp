@@ -44,7 +44,7 @@ function insertIssue (issueId, issueNode) {
  * Creates a issue node.
  *
  * @param {object} issue - The issue to add.
- * @returns {object} issueNode DOM object
+ * @returns {object} issueNode - The node to insert.
  */
 function createIssue (issue) {
   try {
@@ -68,7 +68,6 @@ function createIssue (issue) {
 
       return issueNode
     }
-    return
   } catch (error) {
     console.log(error)
   }

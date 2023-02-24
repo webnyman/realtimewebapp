@@ -18,7 +18,7 @@ export class IssueController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async index (req, res, next) {
+  async index(req, res, next) {
     try {
       const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues?state=opened`, {
         headers: {
@@ -32,6 +32,29 @@ export class IssueController {
       }
 
       res.render('issues/index', { issueData })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Returns an issue for edit.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async edit(req, res, next) {
+    try {
+      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'PRIVATE-TOKEN': process.env.GITLAB_API_TOKEN
+        }
+      })
+      const issueData = await response.json()
+      res.render('issues/update', { issueData })
+      console.log(issueData)
     } catch (error) {
       next(error)
     }
@@ -67,27 +90,30 @@ export class IssueController {
   }
 
   /**
-   * Deletes an issue.
+   * Updates an issue.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async delete (req, res, next) {
+  async update (req, res, next) {
     try {
-      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}?state_event=close`, {
+      const description = {
+        description: req.body.description
+      }
+      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues/${req.params.id}`, {
         method: 'PUT',
+        body: JSON.stringify(description),
         headers: {
           'Content-Type': 'application/json',
           'PRIVATE-TOKEN': process.env.GITLAB_API_TOKEN
         }
       })
       const data = await response.json()
-      console.log(data.message)
-      if (data.message) {
-        req.session.flash = { type: 'danger', text: 'Something went wrong. Could not close the issue' }
+      if (data.error) {
+        req.session.flash = { type: 'danger', text: 'Something went wrong. Could not update the issue' }
       } else {
-        req.session.flash = { type: 'success', text: 'The issue was successfully closed.' }
+        req.session.flash = { type: 'success', text: 'The issue was successfully updated.' }
       }
       res.redirect('../')
     } catch (error) {

@@ -1,7 +1,7 @@
 // Anonymous function for adding tab functionality to textarea
 
 try {
-  const textarea = document.querySelector('#snippetCode')
+  const textarea = document.querySelector('#issueDescr')
 
   textarea.addEventListener('keydown', (event) => {
     if (event.keyCode === 9) {

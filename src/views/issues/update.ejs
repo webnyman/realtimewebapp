@@ -1,31 +1,14 @@
-<h1>Update snippet</h1>
-<form class="row g-3 p-2" method="post" action="./snippets/<%= snippetData?.id %>/update">
+<h1>Update issue description</h1>
+<form class="row g-3 p-2" method="post" action="./issues/<%= issueData?.iid %>/update">
   <div class="form-group row mt-3">
-    <label class="form-label" for="nameInput">
-      Snippet Name
-    </label>
-    <input type="text" class="form-control" id="nameInput" name="snippetName"
-      placeholder="Enter a new snippets name here" required="required" value="<%= snippetData?.snippetName %>" autofocus="autofocus" />
-  </div>
-    <div class="form-group row">
-      <label for="snippetCode">Snippet code</label>
-      <textarea class="form-control" placeholder="Enter snippet code here" id="snippetCode" name="snippetCode" rows="15"><%= snippetData?.snippet %></textarea>
-    </div>
+    <p class="fw-bold mb-1">Issue Title</p>
+    <p class="text-left"><%= issueData?.title %></p>
   </div>
   <div class="form-group row">
-    <div class="form-check-label">Snippet tags</div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" value="JavaScript" id="tag1" <% if (snippetData?.tag === 'JavaScript') { %> checked <% } %> name="tag">
-      <label class="form-check-label" for="tag1">
-        JavaScript
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" value="HTML" id="tag2" <% if (snippetData?.tag === 'HTML') { %> checked <% } %> name="tag">
-      <label class="form-check-label" for="tag2">
-        HTML
-      </label>
-    </div>
+    <label for="snippetCode">Issue description</label>
+    <textarea class="form-control" placeholder="Update issue description here" id="issueDescr" name="description"
+      rows="15"><%= issueData?.description %></textarea>
+  </div>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary">Update</button>

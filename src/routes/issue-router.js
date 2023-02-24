@@ -17,3 +17,7 @@ const controller = new IssueController()
 router.get('/', controller.index)
 
 router.get('/:id/close', controller.close)
+
+router.get('/:id/update', controller.edit)
+
+router.post('/:id/update', controller.update)
