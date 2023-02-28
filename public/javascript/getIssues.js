@@ -50,7 +50,7 @@ function insertIssue (issueId, issueNode) {
  * Creates a issue node.
  *
  * @param {object} issue - The issue to add.
- * @returns {object} issueNode - The node to insert.
+ * @returns {HTMLElement} issueNode - The node to insert.
  */
 function createIssue (issue) {
   if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
