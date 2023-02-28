@@ -5,7 +5,13 @@ const issueContainer = document.querySelector('tbody')
 
 if (issueTemplate) {
   // Create a socket connection using Socket.IO.
-  const socket = window.io()
+  // 🎉 This should work with any subdirectory.
+  const base = document.querySelector('base')
+  const path = base
+    ? (new URL('socket.io', base.href)).pathname
+    : '/socket.io'
+  const socket = window.io.connect('/', { path })
+
   socket.on('newIssue', (issue) => {
     insertIssue(issue.id, createIssue(issue))
   })
