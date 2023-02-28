@@ -53,26 +53,28 @@ function insertIssue (issueId, issueNode) {
  * @returns {HTMLElement} issueNode - The node to insert.
  */
 function createIssue (issue) {
-  if (!issueContainer.querySelector(`[data-id="${issue.id}"]`)) {
-    const issueNode = issueTemplate.content.cloneNode(true)
-    const issueRow = issueNode.querySelector('tr')
-    const issueNumberTd = issueNode.querySelectorAll('td')[0]
-    const issueTitleTd = issueNode.querySelectorAll('td')[1]
-    const issueDescrTd = issueNode.querySelectorAll('td')[2]
-    const avatar = issueNode.querySelector('img')
-    const issueCreatedBySpan = issueNode.querySelector('span')
+  const issueNode = issueTemplate.content.cloneNode(true)
+  const issueRow = issueNode.querySelector('tr')
+  const issueNumberTd = issueNode.querySelectorAll('td')[0]
+  const issueTitleTd = issueNode.querySelectorAll('td')[1]
+  const issueDescrTd = issueNode.querySelectorAll('td')[2]
+  const avatar = issueNode.querySelector('img')
+  const issueCreatedBySpan = issueNode.querySelector('span')
+  const hrefClose = issueNode.querySelector('#href-close')
+  const hrefUpdate = issueNode.querySelector('#href-update')
 
-    issueRow.setAttribute('data-id', issue.id)
-    issueRow.classList.add('issue')
-    issueNumberTd.innerText = issue.iid
-    issueTitleTd.innerText = issue.title
-    issueDescrTd.innerText = issue.description
-    avatar.setAttribute('src', issue.avatar)
-    avatar.setAttribute('alt', issue.createdBy)
-    issueCreatedBySpan.innerText = issue.createdBy
-
-    return issueNode
-  }
+  issueRow.setAttribute('data-id', issue.id)
+  issueRow.classList.add('issue')
+  issueNumberTd.innerText = issue.iid
+  issueTitleTd.innerText = issue.title
+  issueDescrTd.innerText = issue.description
+  avatar.setAttribute('src', issue.avatar)
+  avatar.setAttribute('alt', issue.createdBy)
+  issueCreatedBySpan.innerText = issue.createdBy
+  hrefClose.href = ('./issues/' + issue.iid + '/close')
+  hrefUpdate.href = ('./issues/' + issue.iid + '/update')
+  console.log(issueNode)
+  return issueNode
 }
 
 /**
