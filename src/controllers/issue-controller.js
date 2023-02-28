@@ -20,7 +20,7 @@ export class IssueController {
    */
   async index (req, res, next) {
     try {
-      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues?state=opened`, {
+      const response = await fetch(`https://gitlab.lnu.se/api/v4/projects/${process.env.GITLAB_PROJECT_ID}/issues?state=opened&per_page=100`, {
         headers: {
           'Content-Type': 'application/json',
           'PRIVATE-TOKEN': process.env.GITLAB_API_TOKEN
