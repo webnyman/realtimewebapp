@@ -27,7 +27,7 @@
         </td>
         <td class="text-nowrap">
             <a href="./issues/<%= issue.iid %>/close">Close</a>
-            <a href="./issues/<%= issue.iid %>/update">Update</a>
+            <a href="./issues/<%= issue.iid %>/edit">Edit</a>
         </td>
     </tr>
     <% } %>
@@ -53,8 +53,14 @@
     </td>
     <td class="text-nowrap">
         <a href="" id="href-close">Close</a>
-        <a href="" id="href-update">Update</a>
+        <a href="" id="href-update">Edit</a>
     </td>
 </tr>
 </template>
-<script type="module" src="./javascript/getIssues.js"></script>
+<template id="test">
+    <tr test-id="<%% this.testid %%>">
+        <td class="text-left">
+        </td>
+    </tr>
+</template>
+<script type="module" src="./javascript/issues.js"></script>

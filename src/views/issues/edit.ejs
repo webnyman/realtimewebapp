@@ -1,11 +1,11 @@
-<h1>Update issue description</h1>
-<form class="row g-3 p-2" method="post" action="./issues/<%= issueData?.iid %>/update">
+<h1>Edit issue description</h1>
+<form class="row g-3 p-2" method="post" action="./issues/<%= issueData?.iid %>/edit">
   <div class="form-group row mt-3">
     <p class="fw-bold mb-1">Issue Title</p>
     <p class="text-left"><%= issueData?.title %></p>
   </div>
   <div class="form-group row">
-    <label for="snippetCode">Issue description</label>
+    <label for="snippetCode" class="fw-bold">Issue description</label>
     <textarea class="form-control" placeholder="Update issue description here" id="issueDescr" name="description"
       rows="15"><%= issueData?.description %></textarea>
   </div>

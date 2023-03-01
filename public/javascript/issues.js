@@ -72,7 +72,7 @@ function createIssue (issue) {
   avatar.setAttribute('alt', issue.createdBy)
   issueCreatedBySpan.innerText = issue.createdBy
   hrefClose.href = ('./issues/' + issue.iid + '/close')
-  hrefUpdate.href = ('./issues/' + issue.iid + '/update')
+  hrefUpdate.href = ('./issues/' + issue.iid + '/edit')
   console.log(issueNode)
   return issueNode
 }

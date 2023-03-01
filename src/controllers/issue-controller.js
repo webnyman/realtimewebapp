@@ -53,8 +53,7 @@ export class IssueController {
         }
       })
       const issueData = await response.json()
-      res.render('issues/update', { issueData })
-      console.log(issueData)
+      res.render('issues/edit', { issueData })
     } catch (error) {
       next(error)
     }
@@ -77,7 +76,6 @@ export class IssueController {
         }
       })
       const data = await response.json()
-      console.log(data.message)
       if (data.message) {
         req.session.flash = { type: 'danger', text: 'Something went wrong. Could not close the issue' }
       } else {
@@ -90,7 +88,7 @@ export class IssueController {
   }
 
   /**
-   * Updates an issue.
+   * Updates an issues description.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
