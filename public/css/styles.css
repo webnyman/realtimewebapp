@@ -105,3 +105,10 @@ html {
   .avatar {
     width: 20px;
   }
+  .bi {
+    font-size: 1.5rem;
+    vertical-align: middle!important;
+  }
+  [class^="bi-"]::before, [class*=" bi-"]::before {
+    vertical-align: text-top;
+}

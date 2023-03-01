@@ -23,7 +23,7 @@ if (issueTemplate) {
  * Inserts an issue to the issue table.
  *
  * @param {any} issueId - The issues id
- * @param {object} issueNode - The node to insert
+ * @param {HTMLElement} issueNode - The node to insert
  */
 function insertIssue (issueId, issueNode) {
   try {
@@ -73,7 +73,6 @@ function createIssue (issue) {
   issueCreatedBySpan.innerText = issue.createdBy
   hrefClose.href = ('./issues/' + issue.iid + '/close')
   hrefUpdate.href = ('./issues/' + issue.iid + '/edit')
-  console.log(issueNode)
   return issueNode
 }
 
@@ -84,7 +83,12 @@ function createIssue (issue) {
  */
 function deleteIssueRow (issueId) {
   try {
-    document.querySelector(`tr[data-id="${issueId}"]`).remove()
+    const rowToRemove = document.querySelector(`tr[data-id="${issueId}"]`)
+    rowToRemove.classList.add('table-danger')
+    setTimeout(() => {
+      rowToRemove.classList.remove('table-danger')
+      rowToRemove.remove()
+    }, 1000)
   } catch (error) {
     console.log(error)
   }
@@ -97,7 +101,6 @@ function deleteIssueRow (issueId) {
  */
 function updateIssue (issue) {
   try {
-    console.log(issue.id)
     const issueToUpdate = document.querySelector(`tr[data-id="${issue.id}"]`)
     issueToUpdate.querySelectorAll('td')[1].innerText = issue.title
     issueToUpdate.querySelectorAll('td')[2].innerText = issue.description

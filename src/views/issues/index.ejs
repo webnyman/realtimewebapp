@@ -25,9 +25,9 @@
         <td class="text-left">
             <img crossorigin="anonymous" src="<%= issue.author.avatar_url %>" alt="<%= issue.author.name %>" class="avatar">&nbsp;&nbsp;<%= issue.author.name %>
         </td>
-        <td class="text-nowrap">
-            <a href="./issues/<%= issue.iid %>/close">Close</a>
-            <a href="./issues/<%= issue.iid %>/edit">Edit</a>
+        <td class="text-left">
+            <a href="./issues/<%= issue.iid %>/close"><i class="bi bi-x-square"></i></a>
+            <a href="./issues/<%= issue.iid %>/edit"><i class="bi bi-pencil-square"></i></a>
         </td>
     </tr>
     <% } %>
@@ -52,8 +52,8 @@
         <img crossorigin="anonymous" src="" alt="" class="avatar">&nbsp;&nbsp;<span></span>
     </td>
     <td class="text-nowrap">
-        <a href="" id="href-close">Close</a>
-        <a href="" id="href-update">Edit</a>
+        <a href="" id="href-close"><i class="bi bi-x-square"></i></a>
+        <a href="" id="href-update"><i class="bi bi-pencil-square"></i></a>
     </td>
 </tr>
 </template>
