@@ -12,10 +12,15 @@ if (issueTemplate) {
     : '/socket.io'
   const socket = window.io.connect('/', { path })
 
+  // Listener for new issue
   socket.on('newIssue', (issue) => {
     insertIssue(issue.id, createIssue(issue))
   })
+
+  // Listener for close issue
   socket.on('closeIssue', (issue) => deleteIssueRow(issue.id))
+
+  // Listener for update issue
   socket.on('updateIssue', (issue) => updateIssue(issue))
 }
 
@@ -53,6 +58,7 @@ function insertIssue (issueId, issueNode) {
  * @returns {HTMLElement} issueNode - The node to insert.
  */
 function createIssue (issue) {
+  // Get all necessary HTML Elements fron template
   const issueNode = issueTemplate.content.cloneNode(true)
   const issueRow = issueNode.querySelector('tr')
   const issueNumberTd = issueNode.querySelectorAll('td')[0]
@@ -63,6 +69,7 @@ function createIssue (issue) {
   const hrefClose = issueNode.querySelector('#href-close')
   const hrefUpdate = issueNode.querySelector('#href-update')
 
+  // Set all necessary parameters from issue
   issueRow.setAttribute('data-id', issue.id)
   issueRow.classList.add('issue')
   issueNumberTd.innerText = issue.iid
@@ -73,6 +80,7 @@ function createIssue (issue) {
   issueCreatedBySpan.innerText = issue.createdBy
   hrefClose.href = ('./issues/' + issue.iid + '/close')
   hrefUpdate.href = ('./issues/' + issue.iid + '/edit')
+
   return issueNode
 }
 
@@ -112,7 +120,7 @@ function updateIssue (issue) {
 }
 
 /**
- * Makes row green on insert.
+ * Makes row green on insert and update.
  *
  * @param {any} issueId - The issue to glow.
  *
